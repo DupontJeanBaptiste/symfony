@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+
+{#{% block body %}
+    {{dump(category.program[0].title)}}
+{% endblock %}#}
+
+{% block title %}Catégories #{{ category.id }}{% endblock %}
+
+{% block body %}
+    <div class="media">
+        <div class="media-body">
+            <h1 class="mt-0">{{ category.name }}</h1>
+            <ul>
+                {% for program in categoryProgram %}
+                <li>
+                    <p>Programmes : {{ program.title }}</p>
+                    <p>Summary : {{ program.summary }}</p>
+                    {% else %}
+                    No program's in this category.
+                    {% endfor %}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <a href="{{ path('category_index') }}">
+        Retour à la liste des categories
+    </a>
+{% endblock %}

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ProgramRepository;
+use App\Entity\Category;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProgramRepository::class)]
@@ -22,9 +23,10 @@ class Program
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $poster;
 
-    #[ORM\ManyToOne(targetEntity: category::class)]
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'program')]
     #[ORM\JoinColumn(nullable: false)]
     private $category;
+
 
     public function getId(): ?int
     {
@@ -67,15 +69,16 @@ class Program
         return $this;
     }
 
-    public function getCategory(): ?category
+    public function getCategory(): ?Category
     {
         return $this->category;
     }
 
-    public function setCategory(?category $category): self
+    public function setCategory(?Category $category): self
     {
         $this->category = $category;
 
         return $this;
     }
+
 }
