@@ -6,10 +6,11 @@ use App\Entity\Episode;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Faker\Factory;
 
 class EpisodeFixtures extends Fixture implements DependentFixtureInterface
 {
-    public const EPISODE = 
+    /*public const EPISODE = 
     [
         ['title' => 'Pilot',
         'number' => '1',
@@ -86,17 +87,19 @@ class EpisodeFixtures extends Fixture implements DependentFixtureInterface
         'synopsis' => 'Robb and Catelyn arrive at Riverrun for Lord Hoster Tully\'s funeral. Tywin names Tyrion the new Master of Coin. Arya says goodbye to Hot Pie. The Night\'s Watch returns to Craster\'s. Brienne and Jaime are taken prisoner.',
         'season' => '3',
         'program' => 'Game_of_Thrones'],
-    ];
+    ];*/
 
     public function load(ObjectManager $manager): void
     {
-        foreach (self::EPISODE as $episodeName => $infos) {
+        $faker = Factory::create();
+
+        for ($i = 0; $i < 120; $i++) {
             $episode = new Episode();
 
-            $episode->setTitle($infos['title']);
-            $episode->setNumber($infos['number']);
-            $episode->setSynopsis($infos['synopsis']);
-            $episode->setSeason($this->getReference($infos['program'].'_season_'.$infos['season'], $episode));
+            $episode->setTitle($faker->sentence());
+            $episode->setNumber($faker->numberBetween(1, 10));
+            $episode->setSynopsis($faker->paragraph(3, true));
+            $episode->setSeason($this->getReference('season_'. $faker->numberBetween(1, 60)));
             $manager->persist($episode);
         }
 
