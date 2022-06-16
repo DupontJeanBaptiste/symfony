@@ -88,8 +88,22 @@ class EpisodeFixtures extends Fixture implements DependentFixtureInterface
         'season' => '3',
         'program' => 'Game_of_Thrones'],
     ];*/
+    public const REF = [
+        ['Breaking_Bad'],
+        ['Game_of_Thrones'],
+        ['Notre_Planète'],
+        ['The_Lord_Of_The_Ring'],
+        ['Star_Wars'],
+        ['The_Ring'],
+        ['Fast_And_Furious'],
+        ['Nom_De_Film_Romantic_Random'],
+        ['The_Witcher'],
+        ['Dragon'],
+        ['Derrick'],
+        ['It_Follow'],
+    ];
 
-    public function load(ObjectManager $manager): void
+    /*public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
 
@@ -101,6 +115,28 @@ class EpisodeFixtures extends Fixture implements DependentFixtureInterface
             $episode->setSynopsis($faker->paragraph(3, true));
             $episode->setSeason($this->getReference('season_'. $faker->numberBetween(1, 60)));
             $manager->persist($episode);
+        }
+
+        $manager->flush();
+    }*/
+
+    public function load(ObjectManager $manager): void
+    {
+        $faker = Factory::create();
+
+        foreach(self::REF as $key => $ref) {
+            for ($i = 1; $i <= 5; $i++) {
+                for ($y = 1; $y <= 10; $y++){
+                    $episode = new Episode();
+
+                    $episode->setTitle($faker->sentence());
+                    $episode->setNumber($y);
+                    $episode->setSynopsis($faker->paragraph(3, true));
+                    $episode->setSeason($this->getReference('season_'.$ref[0].$i));
+                    $this->addReference('episode'.$ref[0].$i.$y, $episode);
+                    $manager->persist($episode);
+                }    
+            }
         }
 
         $manager->flush();

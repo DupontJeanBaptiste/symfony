@@ -21,7 +21,7 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         {% for program in programs %}
                         <div class="loop_program">
-                                <li><a class="dropdown-item" href="{{ path('program_show', {id: program.id}) }}">{{ program.title }}</a></li>
+                                <li><a class="dropdown-item" href="{{ path('program_show', {'id': program.id}) }}">{{ program.title }}</a></li>
                         </div>
                         {% else %}
                         Aucune série trouvée.

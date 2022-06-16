@@ -101,13 +101,13 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create();
 
-        foreach (self::PROGRAM as $programName => $infos) {
+        foreach (self::PROGRAM as $programInfo => $infos) {
             $program = new Program();
             $program->setTitle($infos['title']);
             $program->setSummary($infos['summary']);
             $program->setPoster($infos['poster']);
             $program->setCategory($this->getReference('category_'.$infos['category']));
-            $this->addReference('program_' . $faker->unique()->numberBetween(1, 12), $program);
+            $this->addReference('program_' . $programInfo, $program);
             $manager->persist($program);
             }
 

@@ -5,12 +5,10 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="{{ asset('build/images/linux.png') }}">
-        
-        <title>{% block title %}Welcome!{% endblock %}</title>
-
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
+        <title>{% block title %}Welcome!{% endblock %}</title>
         
     </head>
     <body>

@@ -4,15 +4,11 @@
 
 {% block body %}
     
-        <H1>Liste des épisodes de la saison {{season.number}}</H1>
-    {% for episode in episodes %}
-    <ul>
-    <li>
-    <a href="{{ path('program_show_episode', {'programId': season.program.id, 'seasonId': season.id, 'episodeId': episode.id}) }}">{{ episode.title }} - {{ episode.number}}
-    </a>
-    </li>
-    </ul>
-    {% endfor %}
+    <H1>{{ episode.title }}</H1>
+    <p>{{ episode.number}}</p>
+    <br>
+    <p>Résumé : {{ episode.synopsis}}</p>
+    
 
     <a href="{{ path('program_show', {id: season.program.id}) }}">
         Retour à la liste des saisons
