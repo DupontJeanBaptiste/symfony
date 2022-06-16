@@ -1,8 +1,10 @@
 // the ~ allows you to reference things in node_modules
 @import "~bootstrap/scss/bootstrap";
+$color :#e2deec;
+
 body {
     height: auto;
-    background-image: linear-gradient(to left bottom, #fef6ff, #f5eef9, #ece6f2, #e2deec, #d8d6e6);
+    background-color: $color;
 }
 
 h1 {

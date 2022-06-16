@@ -36,20 +36,56 @@ class SeasonFixtures extends Fixture implements DependentFixtureInterface
         'description' => 'Ceci est un résumé',
         'program' => 'Breaking_Bad']
         ];*/
+
+        public const REF = [
+            ['Breaking_Bad'],
+            ['Game_of_Thrones'],
+            ['Notre_Planète'],
+            ['The_Lord_Of_The_Ring'],
+            ['Star_Wars'],
+            ['The_Ring'],
+            ['Fast_And_Furious'],
+            ['Nom_De_Film_Romantic_Random'],
+            ['The_Witcher'],
+            ['Dragon'],
+            ['Derrick'],
+            ['It_Follow'],
+        ];
     
-        public function load(ObjectManager $manager): void
+        /*public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
 
-            for($i = 0; $i < 60; $i++) {
-            $season = new Season();
-            $season->setNumber($faker->numberBetween(1, 5));
-            $season->setYear($faker->year());
-            $season->setDescription($faker->paragraphs(3, true));
-            $season->setProgram($this->getReference('program_'.$faker->numberBetween(1, 12)));
-            $this->addReference('season_' . $faker->unique()->numberBetween(1, 60), $season);
-            
-            $manager->persist($season);
+            for($i = 0; $i < 11; $i++) {
+                foreach (self::SEASONS as $key => $number){
+                    $season = new Season();
+                    $season->setNumber($faker->numberBetween($number));
+                    $season->setYear($faker->year());
+                    $season->setDescription($faker->paragraphs(3, true));
+                    $season->setProgram($this->getReference('program_'.$faker->numberBetween(0, 11)));
+                    $this->addReference('season_' . $faker->unique()->numberBetween(1, ), $season);
+                    
+                    $manager->persist($season);
+                }
+            }
+
+            $manager->flush();
+    }*/
+
+    public function load(ObjectManager $manager): void
+    {
+        $faker = Factory::create();
+
+            foreach (self::REF as $key => $ref){
+                for($i = 1; $i <= 5; $i++){
+                    $season = new Season();
+                    $season->setNumber($i);
+                    $season->setYear($faker->year());
+                    $season->setDescription($faker->paragraph(3, true));
+                    $season->setProgram($this->getReference('program_'. $key));
+                    $this->addReference('season_'. $ref[0] . $i, $season);
+                    $manager->persist($season);
+                }
             }
 
             $manager->flush();
